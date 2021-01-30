@@ -1,0 +1,18 @@
+%MATLABCODE
+%tic ;
+%x2 = jacobi (A,b, TOL );
+% fprintf ('Jacobi   took  %g sec  \n', toc ); 
+% A=[10 -1 2 0; -1 11 -1 3; 2 -1 10 -1; 0 3 -1 8];
+% b=[6;25;-11;15];
+% TOL=0.001;
+
+function x2=jacobi(A,b, TOL )
+N2=size(b); %uppskattar storleken på b
+D=diag(diag(A));%skapar D-matrisen
+D_inv=inv(D);
+x2=zeros(N2(1),1); %begynnelsevärde x
+r=b-A*x2; %startfel
+while norm(r)>TOL %medans felet är större än toleransen
+    x2=D_inv*((D-A)*x2+b); %algoritmen
+    r=b-A*x2;
+end
